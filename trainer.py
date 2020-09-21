@@ -1,25 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from estimation import estimatePrice
-import theta
+from loader import FileLoader
 
-class FileLoader():
+class Trainer():
 	def __init__(self):
 		self.theta0 = 0
 		self.theta1 = 0
-
-	def load(self, path):
-		try:
-			data = pd.read_csv(path)
-			print("Loading dataset of dimensions {} x {}".format(data.shape[0], data.shape[1]))
-			return data
-		except Exception:
-			print ("Error")
-			exit()
-
-	def display(self, df, n):
-		print(df[:n])
 
 	def internEstimatePrice(self, mileage):
 		return (self.theta0 + (self.theta1 * mileage))
@@ -48,21 +35,18 @@ class FileLoader():
 			#print("t0 {} et t1 {}".format(self.theta0, self.theta1))
 		print(self.theta0)
 		print(self.theta1)
-		theta.theta0 = self.theta0
-		theta.theta1 = self.theta1
+		newFile = open("theta.py", "w+")
+		newFile.write("theta0 = {}\ntheta1 = {}\n".format(self.theta0, self.theta1))
+		newFile.close()
+		#theta.theta0 = self.theta0
+		#theta.theta1 = self.theta1
+		#theta.theta0 = 0
+		#theta.theta1 = 0
 		#modify_thetas(self.theta0, self.theta1)
 
 
 loader = FileLoader()
 data = loader.load("/Users/floblanc/Projects/AI/ft_linear_regression/data.csv")
-loader.display(data["price"],len(data))
-loader.training(data)
-x = np.array(data["km"])
-print(x)
-y = estimatePrice(x)#loader.internEstimatePrice(x)
-print (y)
-plt.scatter(data["km"], data["price"])
-plt.plot(x,y, color='red')
-plt.ylabel('price')
-plt.xlabel('km')
-plt.show()
+#loader.display(data["price"],len(data))
+trainer = Trainer()
+trainer.training(data)
