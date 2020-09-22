@@ -7,7 +7,7 @@ class FileLoader():
 			print("Loading dataset of dimensions {} x {}".format(data.shape[0], data.shape[1]))
 			return data
 		except Exception:
-			print ("Error")
+			print ("CSV reader failed on : {}".format(path))
 			exit()
 
 	def display(self, df, n):
