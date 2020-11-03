@@ -1,24 +1,17 @@
-import matplotlib.pyplot as plt
+import argparse
 import numpy as np
-import sys
-import theta
-from loader import FileLoader
+from theta import theta0, theta1
 
-def estimatePrice(mileage):
-		return (theta.theta0 + (theta.theta1 * mileage))
 
-if (len(sys.argv) < 3):
-	file = "data.csv"
-	if (len(sys.argv) == 2):
-		file = sys.argv[1]
-	loader = FileLoader()
-	data = loader.load(sys.path[0] + "/" + file)
-	x = np.array(data["km"])
-	y = estimatePrice(x)
-	plt.scatter(data["km"], data["price"])
-	plt.plot(x,y, color='red')
-	plt.ylabel('price')
-	plt.xlabel('km')
-	plt.show()
-else:
-	print("There is too much arguments.")
+def estimatePrice(value):
+	return theta0 + theta1 * value
+
+
+if (__name__ == '__main__'):
+	parser = argparse.ArgumentParser(description="Price Estimation")
+	parser.add_argument("number", help="number of kilometers", type=int)
+	args = parser.parse_args()
+	try:
+		print(estimatePrice(args.number))
+	except Exception as e:
+		print(e)
