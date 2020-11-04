@@ -1,5 +1,4 @@
 import argparse
-import numpy as np
 from theta import theta0, theta1
 
 

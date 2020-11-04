@@ -22,6 +22,7 @@ class LinearRegression():
 
 	def __init__(self, data, iterations, learningRate):
 		self.theta = np.zeros((1, 2))
+		print(self.theta)
 		self.learningRate = learningRate if learningRate is not None else 0.1
 		self.m = data.shape[0]
 		self.iterations = iterations if iterations is not None else 100
@@ -48,6 +49,7 @@ class LinearRegression():
 		self.standardize(data)
 		print("Training with {} iterations".format(self.iterations))
 		X = np.append(np.ones(self.km.shape), self.km, axis=0)
+		print(X.T)
 		for i in range(self.iterations):
 			self.theta = self.theta - (1 / self.m) * self.learningRate * np.dot(X, (self.estimatePrice(X) - self.price).T).T
 			self.cost_history[i] = self.cost_fun(X)
